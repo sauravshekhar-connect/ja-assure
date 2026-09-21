@@ -139,3 +139,14 @@ export interface NewsjackTrigger {
   suggestedAngle: string;
   date: string;
 }
+
+export type ThemeId = 'runner-dark' | 'runner-light' | 'digilink-gold' | 'cyber-matrix' | 'royal-amethyst';
+
+export interface ThemeOption {
+  id: ThemeId;
+  name: string;
+  tagline: string;
+  previewColor: string;
+  accentBadge: string;
+  isDark: boolean;
+}

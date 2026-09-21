@@ -3,25 +3,395 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #030712;
+    color: #f3f4f6;
+    overflow-x: hidden;
   }
   
+  h1, h2, h3, .font-display {
+    font-family: 'Syne', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .font-tech {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  .font-serif-display {
+    font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-editorial {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  /* 3D Extruded Display Typography */
+  .font-3d-logo {
+    font-family: 'Righteous', 'Syne', sans-serif;
+    letter-spacing: 0.05em;
+    background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 45%, #38bdf8 85%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 0 #38bdf8)
+            drop-shadow(0 2px 0 #0284c7)
+            drop-shadow(0 3px 0 #0369a1)
+            drop-shadow(0 5px 8px rgba(0, 0, 0, 0.85));
+    display: inline-block;
+    transform: perspective(500px) translateZ(10px);
+  }
+
+  .font-3d-logo-emerald {
+    font-family: 'Righteous', 'Syne', sans-serif;
+    letter-spacing: 0.05em;
+    background: linear-gradient(180deg, #ffffff 0%, #d1fae5 45%, #34d399 85%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 0 #34d399)
+            drop-shadow(0 2px 0 #10b981)
+            drop-shadow(0 3px 0 #047857)
+            drop-shadow(0 5px 8px rgba(0, 0, 0, 0.85));
+    display: inline-block;
+    transform: perspective(500px) translateZ(10px);
+  }
+
+  .font-3d {
+    font-family: 'Righteous', 'Syne', sans-serif;
+    letter-spacing: 0.02em;
+    text-shadow: 
+      0 1px 0 rgba(255, 255, 255, 0.6),
+      0 2px 0 #0284c7,
+      0 3px 0 #0369a1,
+      0 4px 1px #075985,
+      0 6px 8px rgba(0, 0, 0, 0.7);
+    display: inline-block;
+  }
+
+  .theme-runner-light .font-3d-logo {
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 0 #cbd5e1)
+            drop-shadow(0 2px 0 #94a3b8)
+            drop-shadow(0 3px 0 #64748b)
+            drop-shadow(0 4px 6px rgba(15, 23, 42, 0.25));
+  }
 }
 
-/* Custom scrollbar for dense data panels */
+/* ==========================================================================
+   THEME SYSTEMS: Runner AI (Flagship), Digilink Gold, Cyber Matrix, Royal Amethyst
+   ========================================================================== */
+
+/* 1. RUNNER AI DARK (Signature Carbon Obsidian & Polar Cyan - Default) */
+.theme-runner-dark .hitech-bg,
+.hitech-bg {
+  background-color: #08090d;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(1000px circle at 15% 15%, rgba(56, 189, 248, 0.12), transparent 55%),
+    radial-gradient(1100px circle at 85% 20%, rgba(99, 102, 241, 0.12), transparent 60%),
+    radial-gradient(900px circle at 50% 70%, rgba(16, 185, 129, 0.10), transparent 55%);
+  background-size: 32px 32px, 32px 32px, auto, auto, auto;
+  background-attachment: fixed;
+}
+
+.theme-runner-dark .hitech-card,
+.hitech-card {
+  background: rgba(12, 15, 22, 0.78);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.9),
+    0 0 1px 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-runner-dark .hitech-card:hover,
+.hitech-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 
+    0 28px 56px -16px rgba(0, 0, 0, 0.95),
+    0 0 25px -5px rgba(56, 189, 248, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.theme-runner-dark .btn-gold,
+.btn-gold {
+  background: #ffffff;
+  color: #08090d;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-runner-dark .btn-gold:hover,
+.btn-gold:hover {
+  background: #f1f5f9;
+  box-shadow: 0 15px 35px -5px rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+}
+
+/* 2. RUNNER AI LIGHT (Pure Architectural Studio White) */
+.theme-runner-light {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.theme-runner-light .hitech-bg {
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    radial-gradient(900px circle at 15% 15%, rgba(56, 189, 248, 0.07), transparent 55%),
+    radial-gradient(1100px circle at 85% 20%, rgba(99, 102, 241, 0.06), transparent 60%);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+  background-attachment: fixed;
+}
+
+.theme-runner-light .hitech-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  box-shadow: 
+    0 16px 36px -12px rgba(15, 23, 42, 0.07),
+    0 1px 3px 0 rgba(15, 23, 42, 0.04);
+}
+
+.theme-runner-light .hitech-card:hover {
+  border-color: rgba(15, 23, 42, 0.3);
+  box-shadow: 
+    0 24px 48px -12px rgba(15, 23, 42, 0.12),
+    0 0 20px -5px rgba(56, 189, 248, 0.15);
+  transform: translateY(-2px);
+}
+
+.theme-runner-light .btn-gold {
+  background: #090a0f;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.35);
+}
+
+.theme-runner-light .btn-gold:hover {
+  background: #1e293b;
+  box-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.5);
+}
+
+.theme-runner-light header,
+.theme-runner-light .sticky {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(15, 23, 42, 0.09);
+}
+
+.theme-runner-light .text-white {
+  color: #0f172a !important;
+}
+
+.theme-runner-light .text-slate-100,
+.theme-runner-light .text-slate-200,
+.theme-runner-light .text-slate-300 {
+  color: #1e293b !important;
+}
+
+.theme-runner-light .text-slate-400,
+.theme-runner-light .text-slate-500 {
+  color: #64748b !important;
+}
+
+.theme-runner-light .bg-slate-950,
+.theme-runner-light .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.09) !important;
+}
+
+/* 3. DIGILINK GOLD (Obsidian & Amber Gold Aurora) */
+.theme-digilink-gold .hitech-bg {
+  background-color: #030712;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    radial-gradient(900px circle at 10% 15%, rgba(245, 158, 11, 0.16), transparent 55%),
+    radial-gradient(1100px circle at 85% 20%, rgba(139, 92, 246, 0.18), transparent 60%),
+    radial-gradient(950px circle at 50% 65%, rgba(6, 182, 212, 0.14), transparent 55%),
+    radial-gradient(850px circle at 80% 90%, rgba(16, 185, 129, 0.12), transparent 50%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto, auto;
+  background-attachment: fixed;
+}
+
+.theme-digilink-gold .hitech-card {
+  background: rgba(10, 15, 30, 0.72);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 0, 0, 0.85),
+    0 0 1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-digilink-gold .hitech-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 
+    0 32px 64px -16px rgba(0, 0, 0, 0.9),
+    0 0 30px -5px rgba(245, 158, 11, 0.18),
+    inset 0 1px 0 0 rgba(245, 158, 11, 0.25);
+  transform: translateY(-2px);
+}
+
+.theme-digilink-gold .btn-gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+  color: #030712;
+  font-weight: 800;
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.5);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-digilink-gold .btn-gold:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 15px 35px -5px rgba(245, 158, 11, 0.7);
+  transform: translateY(-2px);
+}
+
+/* 3. CYBER MATRIX (Deep Space & Electric Cyan Telemetry) */
+.theme-cyber-matrix .hitech-bg {
+  background-color: #020617;
+  background-image: 
+    linear-gradient(to right, rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 182, 212, 0.04) 1px, transparent 1px),
+    radial-gradient(900px circle at 10% 15%, rgba(6, 182, 212, 0.2), transparent 55%),
+    radial-gradient(1100px circle at 85% 20%, rgba(16, 185, 129, 0.18), transparent 60%),
+    radial-gradient(950px circle at 50% 65%, rgba(14, 165, 233, 0.16), transparent 55%),
+    radial-gradient(850px circle at 80% 90%, rgba(99, 102, 241, 0.14), transparent 50%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto, auto;
+  background-attachment: fixed;
+}
+
+.theme-cyber-matrix .hitech-card {
+  background: rgba(4, 15, 28, 0.78);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 0, 0, 0.9),
+    0 0 1px 1px rgba(6, 182, 212, 0.1),
+    inset 0 1px 0 0 rgba(6, 182, 212, 0.15);
+}
+
+.theme-cyber-matrix .hitech-card:hover {
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 
+    0 32px 64px -16px rgba(0, 0, 0, 0.95),
+    0 0 30px -5px rgba(6, 182, 212, 0.3);
+  transform: translateY(-2px);
+}
+
+.theme-cyber-matrix .btn-gold {
+  background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 50%, #0891b2 100%);
+  color: #020617;
+  font-weight: 800;
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.5);
+}
+
+.theme-cyber-matrix .btn-gold:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 15px 35px -5px rgba(6, 182, 212, 0.7);
+}
+
+/* 4. ROYAL AMETHYST (Imperial Deep Violet & Velvet Magenta) */
+.theme-royal-amethyst .hitech-bg {
+  background-color: #090414;
+  background-image: 
+    linear-gradient(to right, rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+    radial-gradient(900px circle at 10% 15%, rgba(168, 85, 247, 0.22), transparent 55%),
+    radial-gradient(1100px circle at 85% 20%, rgba(217, 70, 239, 0.18), transparent 60%),
+    radial-gradient(950px circle at 50% 65%, rgba(124, 58, 237, 0.16), transparent 55%),
+    radial-gradient(850px circle at 80% 90%, rgba(236, 72, 153, 0.14), transparent 50%);
+  background-size: 40px 40px, 40px 40px, auto, auto, auto, auto;
+  background-attachment: fixed;
+}
+
+.theme-royal-amethyst .hitech-card {
+  background: rgba(18, 10, 32, 0.76);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 0, 0, 0.9),
+    0 0 1px 1px rgba(168, 85, 247, 0.1),
+    inset 0 1px 0 0 rgba(168, 85, 247, 0.15);
+}
+
+.theme-royal-amethyst .hitech-card:hover {
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 
+    0 32px 64px -16px rgba(0, 0, 0, 0.95),
+    0 0 30px -5px rgba(168, 85, 247, 0.3);
+  transform: translateY(-2px);
+}
+
+.theme-royal-amethyst .btn-gold {
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #9333ea 100%);
+  color: #0b0416;
+  font-weight: 800;
+  box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.5);
+}
+
+.theme-royal-amethyst .btn-gold:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 15px 35px -5px rgba(168, 85, 247, 0.7);
+}
+
+
+/* Subtle glowing pill */
+.hitech-pill {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.hitech-pill:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* Aurora chromatic beam animation */
+@keyframes chromatic-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-aurora {
+  background-size: 200% 200%;
+  animation: chromatic-flow 12s ease infinite;
+}
+
+/* Smooth custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #030712;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(71, 85, 105, 0.5);
+  background: #1f2937;
   border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 0.8);
+  background: #374151;
+  border-color: rgba(245, 158, 11, 0.4);
 }

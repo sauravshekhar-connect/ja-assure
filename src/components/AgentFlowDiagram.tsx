@@ -8,8 +8,8 @@ import {
   Send, 
   RotateCcw, 
   TrendingUp, 
-  Users,
-  ArrowRight
+  ArrowRight,
+  ArrowUpRight
 } from "lucide-react";
 
 interface AgentFlowDiagramProps {
@@ -24,165 +24,211 @@ export const AgentFlowDiagram: React.FC<AgentFlowDiagramProps> = ({
   lessonsCount,
 }) => {
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-xl relative overflow-hidden backdrop-blur-sm">
-      {/* Background glow accents */}
-      <div className="absolute top-0 right-1/4 w-72 h-32 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-1/4 w-72 h-32 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="hitech-card rounded-[32px] p-8 sm:p-12 relative overflow-hidden">
+      {/* Background chromatic glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 mb-4">
-        <div>
-          <h3 className="text-sm font-bold text-white flex items-center gap-2 tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            JA ASSURE MULTI-AGENT ARCHITECTURE (HACKATHON PIPELINE)
-          </h3>
-          <p className="text-xs text-slate-400">
-            End-to-end agentic workflow with mandatory Human-in-the-Loop & Closed-Loop Reinforcement
+      {/* Header section with generous spacing */}
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-white/10 relative z-10">
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full hitech-pill text-xs font-mono text-amber-300">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span>ARCHITECTURE BLUEPRINT</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight font-display">
+            PIPELINE ORCHESTRATION MATRIX
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+            Autonomous multi-agent execution with hard compliance gates and closed-loop reinforcement memory.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono">
-          <span className="px-2.5 py-1 rounded-md bg-emerald-950/60 border border-emerald-700/30 text-emerald-300">
-            Project 1: The Brain (Active)
+
+        <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+          <span className="px-4 py-2 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-300 font-bold">
+            MODULE 1: AUTONOMOUS BRAIN
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-cyan-950/60 border border-cyan-700/30 text-cyan-300">
-            Project 2: The Hands (Active)
+          <span className="px-4 py-2 rounded-2xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 font-bold">
+            MODULE 2: PUBLISHING HANDS
           </span>
         </div>
       </div>
 
-      {/* Main Agent Step Pipeline */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 relative z-10">
+      {/* Main Agent Step Pipeline with Generous Gaps (Digilink Services style cards) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 relative z-10">
+        
         {/* Step 1: Research Agent */}
         <div 
           onClick={() => onSelectTab && onSelectTab("competitors")}
-          className="group cursor-pointer p-3 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/60 hover:bg-slate-800/80 transition-all"
+          className="group cursor-pointer p-6 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-amber-400/60 hover:bg-slate-900/90 transition-all shadow-xl flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-              <Search className="w-3.5 h-3.5" />
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                <Search className="w-6 h-6" />
+              </div>
+              <span className="text-xs font-mono text-slate-400 font-bold">01</span>
             </div>
-            <span className="text-[10px] font-mono text-slate-500">01</span>
+            <h3 className="text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+              Market Radar
+            </h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              Competitor pricing, newsjack events & regulatory alerts
+            </p>
           </div>
-          <h4 className="text-xs font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">
-            Research Agent
-          </h4>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
-            Competitor pricing, newsjack events & trend alerts
-          </p>
+          <div className="mt-6 flex items-center text-xs text-slate-500 group-hover:text-amber-400 font-mono gap-1">
+            <span>Explore</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
         </div>
 
-        {/* Step 2: Content Agent */}
+        {/* Step 2: Content Agent (Special Highlighted Card like Digilink yellow card) */}
         <div 
           onClick={() => onSelectTab && onSelectTab("generator")}
-          className="group cursor-pointer p-3 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/60 hover:bg-slate-800/80 transition-all ring-1 ring-emerald-500/20"
+          className="group cursor-pointer p-6 rounded-3xl hitech-card-gold transition-all shadow-xl flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-              <Sparkles className="w-3.5 h-3.5" />
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold shadow-lg shadow-amber-400/40 group-hover:scale-110 transition-transform">
+                <Sparkles className="w-6 h-6 text-slate-950" />
+              </div>
+              <span className="text-xs font-mono text-amber-300 font-bold">02</span>
             </div>
-            <span className="text-[10px] font-mono text-slate-500">02</span>
+            <h3 className="text-base font-bold text-white group-hover:text-amber-200 transition-colors">
+              Content Engine
+            </h3>
+            <p className="text-xs text-amber-200/80 mt-2 leading-relaxed">
+              Multi-brand personas, video scripts & multi-lingual layers
+            </p>
           </div>
-          <h4 className="text-xs font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">
-            Content Engine
-          </h4>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
-            Brand voice, multi-platform, video & multi-lingual
-          </p>
+          <div className="mt-6 flex items-center text-xs text-amber-300 font-mono font-bold gap-1">
+            <span>Generate</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
         </div>
 
         {/* Step 3: Compliance Gate */}
         <div 
           onClick={() => onSelectTab && onSelectTab("compliance")}
-          className="group cursor-pointer p-3 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/60 hover:bg-slate-800/80 transition-all ring-1 ring-amber-500/20"
+          className="group cursor-pointer p-6 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-emerald-400/60 hover:bg-slate-900/90 transition-all shadow-xl flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-              <ShieldCheck className="w-3.5 h-3.5" />
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <span className="text-xs font-mono text-slate-400 font-bold">03</span>
             </div>
-            <span className="text-[10px] font-mono text-slate-500">03</span>
+            <h3 className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+              Compliance Gate
+            </h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              MAS 124 / BNM rubric, zero-guarantee check & auto-remedy
+            </p>
           </div>
-          <h4 className="text-xs font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">
-            Compliance Gate
-          </h4>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
-            MAS 124 / BNM rubric, guarantee check & auto-amend
-          </p>
+          <div className="mt-6 flex items-center text-xs text-slate-500 group-hover:text-emerald-400 font-mono gap-1">
+            <span>Audit</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
         </div>
 
         {/* Step 4: Human Review */}
         <div 
           onClick={() => onSelectTab && onSelectTab("review")}
-          className="group cursor-pointer p-3 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/60 hover:bg-slate-800/80 transition-all ring-1 ring-emerald-500/30"
+          className="group cursor-pointer p-6 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-purple-400/60 hover:bg-slate-900/90 transition-all shadow-xl flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-              <UserCheck className="w-3.5 h-3.5" />
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                <UserCheck className="w-6 h-6" />
+              </div>
+              <span className="text-xs font-mono text-slate-400 font-bold">04</span>
             </div>
-            <span className="text-[10px] font-mono text-slate-500">04</span>
+            <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+              Human Review
+            </h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              Approve, edit copy, or reject with tag + human memory note
+            </p>
           </div>
-          <h4 className="text-xs font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">
-            Human Review
-          </h4>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
-            Approve, edit copy, or reject with reason tag + note
-          </p>
+          <div className="mt-6 flex items-center text-xs text-slate-500 group-hover:text-purple-400 font-mono gap-1">
+            <span>Approve</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
         </div>
 
         {/* Step 5: Approved Queue (DB) */}
         <div 
           onClick={() => onSelectTab && onSelectTab("hands")}
-          className="group cursor-pointer p-3 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/60 hover:bg-slate-800/80 transition-all"
+          className="group cursor-pointer p-6 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-teal-400/60 hover:bg-slate-900/90 transition-all shadow-xl flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-lg bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
-              <Database className="w-3.5 h-3.5" />
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
+                <Database className="w-6 h-6" />
+              </div>
+              <span className="text-xs font-mono text-slate-400 font-bold">05</span>
             </div>
-            <span className="text-[10px] font-mono text-slate-500">05</span>
+            <h3 className="text-base font-bold text-white group-hover:text-teal-300 transition-colors">
+              Staging DB
+            </h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              Immutable buffer isolating autonomous creation from publishing
+            </p>
           </div>
-          <h4 className="text-xs font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">
-            Approved DB Queue
-          </h4>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
-            Contract between Brain & Hands: rows ready to publish
-          </p>
+          <div className="mt-6 flex items-center text-xs text-slate-500 group-hover:text-teal-400 font-mono gap-1">
+            <span>Inspect</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
         </div>
 
         {/* Step 6: Project 2 (The Hands) */}
         <div 
           onClick={() => onSelectTab && onSelectTab("hands")}
-          className="group cursor-pointer p-3 rounded-xl bg-slate-800/50 border border-slate-700/60 hover:border-emerald-500/60 hover:bg-slate-800/80 transition-all ring-1 ring-cyan-500/30"
+          className="group cursor-pointer p-6 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-cyan-400/60 hover:bg-slate-900/90 transition-all shadow-xl flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-              <Send className="w-3.5 h-3.5" />
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                <Send className="w-6 h-6" />
+              </div>
+              <span className="text-xs font-mono text-slate-400 font-bold">06</span>
             </div>
-            <span className="text-[10px] font-mono text-cyan-400 font-bold">BONUS</span>
+            <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
+              Dispatch Hands
+            </h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              Cron worker fan-out to LinkedIn, X, FB & WhatsApp
+            </p>
           </div>
-          <h4 className="text-xs font-bold text-slate-200 group-hover:text-emerald-300 transition-colors">
-            Auto-Publish Hands
-          </h4>
-          <p className="text-[11px] text-slate-400 mt-0.5 leading-snug">
-            Cron worker, fan-out to LinkedIn, X, IG, TikTok
-          </p>
+          <div className="mt-6 flex items-center text-xs text-slate-500 group-hover:text-cyan-400 font-mono gap-1">
+            <span>Publish</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </div>
         </div>
+
       </div>
 
-      {/* Two Critical Feedback Loops from Hackathon Brief Page 3 */}
-      <div className="mt-3 pt-3 border-t border-slate-800/80 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+      {/* Two Critical Feedback Loops with Generous Spacing */}
+      <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+        
         {/* Loop 1: Feedback Loop */}
         <div 
           onClick={() => onSelectTab && onSelectTab("review")}
-          className="cursor-pointer flex items-center gap-2.5 p-2 rounded-lg bg-purple-950/20 border border-purple-800/30 text-purple-300 hover:bg-purple-950/40 transition-colors"
+          className="cursor-pointer flex items-start gap-5 p-6 rounded-3xl bg-slate-900/50 border border-purple-500/20 hover:border-purple-400/50 hover:bg-purple-950/20 transition-all shadow-lg group"
         >
-          <div className="p-1.5 rounded-md bg-purple-500/20 text-purple-400">
-            <RotateCcw className="w-4 h-4" />
+          <div className="p-3.5 rounded-2xl bg-purple-500/10 text-purple-300 border border-purple-500/30 group-hover:scale-110 transition-transform">
+            <RotateCcw className="w-6 h-6" />
           </div>
-          <div className="flex-1">
-            <div className="font-semibold text-[11px] text-purple-200 flex items-center gap-1.5">
-              <span>CLOSED-LOOP REINFORCEMENT ({lessonsCount} Lessons in Memory)</span>
-              <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300">Key Differentiator</span>
+          <div className="flex-1 space-y-1.5">
+            <div className="font-bold text-sm text-purple-200 flex items-center gap-2">
+              <span>CLOSED-LOOP MEMORY DIRECTIVE</span>
+              <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/30 font-mono">
+                {lessonsCount} RULES
+              </span>
             </div>
-            <p className="text-[10px] text-purple-300/80">
-              Every reject/edit captures tag + note; dynamically injected into Content Agent prompt so mistakes never repeat.
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Every rejection or edit writes an immutable rule to long-term memory, automatically injected into all future prompts so the AI never repeats a compliance failure.
             </p>
           </div>
         </div>
@@ -190,20 +236,24 @@ export const AgentFlowDiagram: React.FC<AgentFlowDiagramProps> = ({
         {/* Loop 2: Analytics Loop */}
         <div 
           onClick={() => onSelectTab && onSelectTab("hands")}
-          className="cursor-pointer flex items-center gap-2.5 p-2 rounded-lg bg-cyan-950/20 border border-cyan-800/30 text-cyan-300 hover:bg-cyan-950/40 transition-colors"
+          className="cursor-pointer flex items-start gap-5 p-6 rounded-3xl bg-slate-900/50 border border-cyan-500/20 hover:border-cyan-400/50 hover:bg-cyan-950/20 transition-all shadow-lg group"
         >
-          <div className="p-1.5 rounded-md bg-cyan-500/20 text-cyan-400">
-            <TrendingUp className="w-4 h-4" />
+          <div className="p-3.5 rounded-2xl bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 group-hover:scale-110 transition-transform">
+            <TrendingUp className="w-6 h-6" />
           </div>
-          <div className="flex-1">
-            <div className="font-semibold text-[11px] text-cyan-200">
-              ANALYTICS OPTIMIZATION LOOP
+          <div className="flex-1 space-y-1.5">
+            <div className="font-bold text-sm text-cyan-200 flex items-center gap-2">
+              <span>ANALYTICS OPTIMIZATION LOOP</span>
+              <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-mono">
+                REAL-TIME
+              </span>
             </div>
-            <p className="text-[10px] text-cyan-300/80">
-              Engagement data (impressions, clicks, leads) flows back into Content Agent for optimal timing and topic scoring.
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Live engagement metrics (impressions, clicks, lead conversion) flow backward into the generation engine to refine optimal posting schedules and topic weighting.
             </p>
           </div>
         </div>
+
       </div>
     </div>
   );

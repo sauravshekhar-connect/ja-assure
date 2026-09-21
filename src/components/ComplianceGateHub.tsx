@@ -128,56 +128,56 @@ export const ComplianceGateHub: React.FC<ComplianceGateHubProps> = ({
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header Banner */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="space-card rounded-3xl p-7 border border-amber-500/30 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-              <ShieldCheck className="w-5 h-5" />
+          <div className="flex items-center gap-3.5">
+            <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-300 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+              <ShieldCheck className="w-6 h-6" />
             </div>
-            <div>
-              <h2 className="text-base font-bold text-white flex items-center gap-2">
+            <div className="space-y-1">
+              <h2 className="text-base font-extrabold text-white flex items-center gap-2.5 tracking-wide font-['Plus_Jakarta_Sans']">
                 Insurance Compliance Gate Hub
-                <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase">
-                  First-Class Agent 03
+                <span className="px-2.5 py-1 text-[10px] font-mono rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase">
+                  NODE 03
                 </span>
               </h2>
               <p className="text-xs text-slate-400">
-                Automated regulatory auditor checking against MAS Notice 124, BNM Code of Conduct, and HKIA Guidelines
+                Automated regulatory orbital auditor checking against MAS Notice 124, BNM Code of Conduct, and HKIA Guidelines
               </p>
             </div>
           </div>
         </div>
 
         {/* Regulatory Badges */}
-        <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-          <span className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+        <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
+          <span className="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 shadow-sm">
             MAS Notice 124 (SG)
           </span>
-          <span className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+          <span className="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-amber-500/30 text-amber-300 shadow-sm">
             BNM Code (MY)
           </span>
-          <span className="px-2.5 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
+          <span className="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 text-indigo-300 shadow-sm">
             HKIA Guideline (HK)
           </span>
         </div>
       </div>
 
       {notification && (
-        <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-200 text-xs flex items-center gap-2 animate-fadeIn">
+        <div className="p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-xs font-medium flex items-center gap-3 backdrop-blur-md animate-fadeIn shadow-lg shadow-emerald-950/50">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
           <span>{notification}</span>
         </div>
       )}
 
       {/* Main Grid: Scanner on Left, Audit Report on Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Left Column: Input Copy & Asset Selector */}
-        <div className="lg:col-span-6 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+        <div className="lg:col-span-6 space-card rounded-3xl p-7 border border-cyan-500/20 shadow-2xl space-y-6">
+          <div className="flex items-center justify-between pb-4 border-b border-cyan-500/15">
+            <h3 className="text-sm font-bold text-white flex items-center gap-2.5 tracking-wide font-['Plus_Jakarta_Sans']">
               <FileCheck className="w-4 h-4 text-cyan-400" />
               Copy Audit Terminal
             </h3>
@@ -257,21 +257,21 @@ export const ComplianceGateHub: React.FC<ComplianceGateHubProps> = ({
             </div>
           </div>
 
-          {/* Trigger Scan Button */}
+          {/* Trigger Scan Button with Orbital Glow */}
           <button
             type="button"
             disabled={isAuditing || !customText.trim()}
             onClick={handleRunAudit}
-            className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs tracking-wide shadow-lg shadow-amber-950/50 border border-amber-400/30 flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
+            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-600 via-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white font-extrabold text-xs tracking-wider shadow-xl shadow-amber-950/60 border border-amber-400/40 flex items-center justify-center gap-2.5 transition-all disabled:opacity-50 cursor-pointer"
           >
             {isAuditing ? (
               <>
-                <RotateCw className="w-4 h-4 animate-spin" />
-                <span>Auditing Against MAS/BNM Insurance Rubrics...</span>
+                <RotateCw className="w-4 h-4 animate-spin text-amber-200" />
+                <span className="font-mono">Auditing Against MAS/BNM Insurance Rubrics...</span>
               </>
             ) : (
               <>
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 text-amber-200" />
                 <span>RUN STRICT COMPLIANCE AUDIT</span>
               </>
             )}
@@ -279,10 +279,10 @@ export const ComplianceGateHub: React.FC<ComplianceGateHubProps> = ({
         </div>
 
         {/* Right Column: Live Audit Inspection Report */}
-        <div className="lg:col-span-6 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-emerald-400" />
+        <div className="lg:col-span-6 space-card rounded-3xl p-7 border border-cyan-500/20 shadow-2xl space-y-6">
+          <div className="flex items-center justify-between pb-4 border-b border-cyan-500/15">
+            <h3 className="text-sm font-bold text-white flex items-center gap-2.5 tracking-wide font-['Plus_Jakarta_Sans']">
+              <BookOpen className="w-4 h-4 text-cyan-400" />
               Regulatory Audit Report
             </h3>
 

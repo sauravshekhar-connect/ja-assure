@@ -1,12 +1,16 @@
 import React from "react";
-import { Shield, Sparkles, RefreshCw, Cpu, Activity, AlertCircle } from "lucide-react";
-import { BrandId } from "../types";
+import { Zap, RefreshCw, Sparkles } from "lucide-react";
+import { BrandId, ThemeId } from "../types";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface HeaderProps {
   selectedBrand: BrandId | "all";
   onSelectBrand: (b: BrandId | "all") => void;
   hasApiKey: boolean;
   onResetDemo: () => void;
+  currentTheme: ThemeId;
+  onThemeChange: (t: ThemeId) => void;
+  onOpenCover?: () => void;
   stats: {
     pendingReview: number;
     approvedQueue: number;
@@ -19,138 +23,207 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   selectedBrand,
   onSelectBrand,
-  hasApiKey,
   onResetDemo,
-  stats,
+  currentTheme,
+  onThemeChange,
+  onOpenCover,
 }) => {
   return (
-    <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
-      {/* Top Banner: Status & Brand Switcher */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        {/* Logo & Identity */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 flex items-center justify-center shadow-lg shadow-emerald-900/30 border border-emerald-400/30">
-            <Shield className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-lg tracking-tight text-white font-['Plus_Jakarta_Sans']">
-                JA ASSURE
-              </span>
-              <span className="px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                InsurTech AI Agent
-              </span>
+    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#08090d]/85 backdrop-blur-xl transition-all duration-200">
+      {/* Primary Horizontal Header Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="h-16 sm:h-[68px] flex items-center justify-between gap-4">
+          
+          {/* ========================================================
+              LEFT: Modern SaaS Logotype & Sub-branding
+              ======================================================== */}
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Minimalist Geometric Mark */}
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-white/15 to-white/5 border border-white/15 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.5)] ring-1 ring-white/10 group cursor-pointer hover:border-white/30 transition-all">
+              <Zap className="w-4 h-4 text-emerald-400 fill-emerald-400/20" />
             </div>
-            <p className="text-xs text-slate-400">
-              Multi-Agent Brain & Hands Pipeline • Singapore, Malaysia, HK, TH, ID
-            </p>
+
+            {/* Clean Logotype & Hierarchy */}
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-baseline gap-1">
+                <span className="font-sans font-bold text-base sm:text-lg tracking-tight text-white">
+                  Scale<span className="text-emerald-400">Up</span>
+                </span>
+              </div>
+
+              <span className="h-3.5 w-px bg-white/15 hidden sm:block" />
+
+              <div className="hidden sm:flex items-center gap-2">
+                <span className="text-xs font-medium text-neutral-300 tracking-tight">
+                  JA Assure
+                </span>
+                <span className="text-[11px] text-neutral-400 hidden lg:inline">
+                  Marketing Engine
+                </span>
+              </div>
+
+              {/* Minimal Regional Market Pill */}
+              <div className="hidden xl:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-[10px] font-mono text-neutral-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>SG • MY • HK</span>
+              </div>
+            </div>
           </div>
+
+          {/* ========================================================
+              CENTER: SaaS Segmented Navigation Tabs (Portfolios)
+              ======================================================== */}
+          <nav
+            aria-label="Brand Portfolios"
+            className="hidden md:flex items-center p-1 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md shadow-inner"
+          >
+            {/* All Portfolios */}
+            <button
+              id="brand-filter-all"
+              onClick={() => onSelectBrand("all")}
+              className={`px-3.5 py-1.5 rounded-full text-xs transition-all duration-150 whitespace-nowrap cursor-pointer ${
+                selectedBrand === "all"
+                  ? "bg-white text-slate-950 font-semibold shadow-sm"
+                  : "text-neutral-400 hover:text-white hover:bg-white/[0.05] font-medium"
+              }`}
+            >
+              All Portfolios
+            </button>
+
+            {/* Jade Jewellers */}
+            <button
+              id="brand-filter-jade"
+              onClick={() => onSelectBrand("jade")}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs transition-all duration-150 whitespace-nowrap cursor-pointer ${
+                selectedBrand === "jade"
+                  ? "bg-white text-slate-950 font-semibold shadow-sm"
+                  : "text-neutral-400 hover:text-white hover:bg-white/[0.05] font-medium"
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${selectedBrand === "jade" ? "bg-emerald-600" : "bg-emerald-400"}`} />
+              <span>Jade Jewellers</span>
+            </button>
+
+            {/* Jaguar Transit */}
+            <button
+              id="brand-filter-jaguar"
+              onClick={() => onSelectBrand("jaguar")}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs transition-all duration-150 whitespace-nowrap cursor-pointer ${
+                selectedBrand === "jaguar"
+                  ? "bg-white text-slate-950 font-semibold shadow-sm"
+                  : "text-neutral-400 hover:text-white hover:bg-white/[0.05] font-medium"
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${selectedBrand === "jaguar" ? "bg-amber-600" : "bg-amber-400"}`} />
+              <span>Jaguar Transit</span>
+            </button>
+
+            {/* DoctorShield */}
+            <button
+              id="brand-filter-doctorshield"
+              onClick={() => onSelectBrand("doctorshield")}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs transition-all duration-150 whitespace-nowrap cursor-pointer ${
+                selectedBrand === "doctorshield"
+                  ? "bg-white text-slate-950 font-semibold shadow-sm"
+                  : "text-neutral-400 hover:text-white hover:bg-white/[0.05] font-medium"
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${selectedBrand === "doctorshield" ? "bg-sky-600" : "bg-sky-400"}`} />
+              <span>DoctorShield</span>
+            </button>
+          </nav>
+
+          {/* ========================================================
+              RIGHT: Unified Actions & Controls ending at Reset
+              ======================================================== */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Live Engine Status Indicator */}
+            <div className="hidden sm:inline-flex items-center gap-2 h-8 px-3 rounded-full bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
+              <span className="font-mono text-[11px] tracking-wide font-medium">FLY MODE</span>
+            </div>
+
+            {/* Theme Switcher Trigger */}
+            <ThemeSwitcher currentTheme={currentTheme} onThemeChange={onThemeChange} />
+
+            {/* Cover Page Portal Link */}
+            {onOpenCover && (
+              <button
+                id="header-open-cover-btn"
+                onClick={onOpenCover}
+                title="Return to interactive entrance cover page"
+                className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/[0.08] hover:border-white/20 text-xs font-medium transition-all cursor-pointer shadow-sm"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden sm:inline">Cover Page</span>
+              </button>
+            )}
+
+            {/* Reset Button (Clean Ending Control) */}
+            <button
+              id="header-reset-demo-btn"
+              onClick={onResetDemo}
+              title="Reset application to seed demo baseline"
+              className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full bg-white/[0.04] hover:bg-rose-500/10 hover:text-rose-300 border border-white/[0.08] hover:border-rose-500/20 text-neutral-400 text-xs font-medium transition-all cursor-pointer shadow-sm group"
+            >
+              <RefreshCw className="w-3.5 h-3.5 text-neutral-400 group-hover:rotate-180 group-hover:text-rose-400 transition-all duration-500" />
+              <span className="hidden sm:inline">Reset</span>
+            </button>
+          </div>
+
         </div>
 
-        {/* Brand Switcher Pills */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900/80 border border-slate-800 rounded-xl overflow-x-auto">
+        {/* Mobile-Only Segmented Brand Scroller */}
+        <div className="md:hidden pb-3 pt-0.5 overflow-x-auto no-scrollbar flex items-center gap-1.5 border-t border-white/[0.04]">
           <button
-            id="brand-filter-all"
             onClick={() => onSelectBrand("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
+            className={`px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-all ${
               selectedBrand === "all"
-                ? "bg-slate-700 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white text-slate-950 font-semibold"
+                : "text-neutral-400 bg-white/[0.03] border border-white/[0.06]"
             }`}
           >
-            All Brands
+            All Portfolios
           </button>
           <button
-            id="brand-filter-jade"
             onClick={() => onSelectBrand("jade")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-all ${
               selectedBrand === "jade"
-                ? "bg-emerald-600/90 text-white shadow-sm shadow-emerald-950"
-                : "text-emerald-400 hover:bg-emerald-950/40"
+                ? "bg-white text-slate-950 font-semibold"
+                : "text-neutral-400 bg-white/[0.03] border border-white/[0.06]"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            Jade Jewellers
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span>Jade</span>
           </button>
           <button
-            id="brand-filter-jaguar"
             onClick={() => onSelectBrand("jaguar")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-all ${
               selectedBrand === "jaguar"
-                ? "bg-amber-600/90 text-white shadow-sm shadow-amber-950"
-                : "text-amber-400 hover:bg-amber-950/40"
+                ? "bg-white text-slate-950 font-semibold"
+                : "text-neutral-400 bg-white/[0.03] border border-white/[0.06]"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-            Jaguar Transit
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <span>Jaguar</span>
           </button>
           <button
-            id="brand-filter-doctorshield"
             onClick={() => onSelectBrand("doctorshield")}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium shrink-0 transition-all ${
               selectedBrand === "doctorshield"
-                ? "bg-cyan-600/90 text-white shadow-sm shadow-cyan-950"
-                : "text-cyan-400 hover:bg-cyan-950/40"
+                ? "bg-white text-slate-950 font-semibold"
+                : "text-neutral-400 bg-white/[0.03] border border-white/[0.06]"
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
-            DoctorShield
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+            <span>DoctorShield</span>
           </button>
-        </div>
-
-        {/* Right side: AI Model Badge & Actions */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs">
-            <Cpu className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="text-slate-300 font-mono">gemini-3.8-flash</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          </div>
-
-          <button
-            id="header-reset-demo-btn"
-            onClick={onResetDemo}
-            title="Reset to fresh demo state with seed data"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-medium transition-colors"
-          >
-            <RefreshCw className="w-3 h-3 text-slate-400" />
-            <span className="hidden sm:inline">Reset Demo</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Real-Time Pipeline Stats Ribbon */}
-      <div className="border-t border-slate-800/60 bg-slate-900/40 px-4 sm:px-6 py-1.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs text-slate-400 overflow-x-auto gap-4">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-500">Pipeline Status:</span>
-              <span className="flex items-center gap-1 text-emerald-400 font-medium">
-                <Activity className="w-3 h-3 animate-spin" style={{ animationDuration: '4s' }} /> Multi-Agent Orchestrator Online
-              </span>
-            </div>
-            <div className="h-3 w-px bg-slate-800"></div>
-            <div className="flex items-center gap-1">
-              <span className="text-slate-500">Compliance Gate:</span>
-              <span className="text-cyan-400 font-mono font-medium">Strict (MAS 124 / BNM)</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 font-mono text-[11px]">
-            <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
-              Pending Review: <strong>{stats.pendingReview}</strong>
-            </span>
-            <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-              Approved Queue: <strong>{stats.approvedQueue}</strong>
-            </span>
-            <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">
-              Published: <strong>{stats.published}</strong>
-            </span>
-            <span className="px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
-              Lessons Memory: <strong>{stats.lessonsCount}</strong>
-            </span>
-          </div>
         </div>
       </div>
     </header>
   );
 };
+

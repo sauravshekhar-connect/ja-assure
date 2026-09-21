@@ -2,5 +2,7 @@
   "name": "JA Assure AI Marketing Agent",
   "description": "Multi-agent InsurTech marketing brain & auto-publishing hands for JA Assure (Jade, Jaguar Transit, DoctorShield) featuring compliance gating, closed-loop feedback learning, and lead intelligence.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

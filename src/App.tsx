@@ -21,7 +21,8 @@ import {
   LessonLearned, 
   LeadProspect, 
   CompetitorIntelligence, 
-  NewsjackTrigger 
+  NewsjackTrigger,
+  ThemeId 
 } from "./types";
 
 import { Header } from "./components/Header";
@@ -33,11 +34,17 @@ import { VideoStudio } from "./components/VideoStudio";
 import { LeadGenHub } from "./components/LeadGenHub";
 import { CompetitorRadar } from "./components/CompetitorRadar";
 import { AutoPublishHands } from "./components/AutoPublishHands";
+import { NeuralMarketCanvas } from "./components/NeuralMarketCanvas";
+import { NeuralMarketTicker } from "./components/NeuralMarketTicker";
+import { NeuralBrainHUD } from "./components/NeuralBrainHUD";
+import { CoverPage } from "./components/CoverPage";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function App() {
   // Navigation & Filtering
   const [activeTab, setActiveTab] = useState<string>("generator");
   const [selectedBrand, setSelectedBrand] = useState<BrandId | "all">("all");
+  const [showCoverPage, setShowCoverPage] = useState<boolean>(true);
 
   // Application State
   const [assets, setAssets] = useState<MarketingAsset[]>([]);
@@ -47,6 +54,22 @@ export default function App() {
   const [newsjacks, setNewsjacks] = useState<NewsjackTrigger[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Active Visual Theme state (with persistence, defaulting to Runner AI)
+  const [currentTheme, setCurrentTheme] = useState<ThemeId>(() => {
+    const saved = localStorage.getItem("ja_theme");
+    if (saved && ["runner-dark", "runner-light", "digilink-gold", "cyber-matrix", "royal-amethyst"].includes(saved)) {
+      return saved as ThemeId;
+    }
+    return "runner-dark";
+  });
+
+  const handleThemeChange = (newTheme: ThemeId) => {
+    setCurrentTheme(newTheme);
+    localStorage.setItem("ja_theme", newTheme);
+    setToastMessage(`Theme switched to ${newTheme.replace("-", " ").toUpperCase()}`);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
 
   // Initial State Hydration
   const loadState = async () => {
@@ -183,36 +206,69 @@ export default function App() {
   const pendingReviewCount = assets.filter((a) => a.status === "pending_review").length;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col antialiased selection:bg-emerald-500 selection:text-slate-950">
+    <div className={`theme-${currentTheme} min-h-screen hitech-bg text-slate-100 flex flex-col antialiased selection:bg-amber-400 selection:text-slate-950 relative overflow-x-hidden transition-colors duration-300`}>
+      {/* Interactive Neural Canvas Background Layer (Neurons & Stock Waves) */}
+      <div className="fixed inset-0 pointer-events-auto z-0 opacity-45">
+        <NeuralMarketCanvas interactive={true} theme={currentTheme} />
+      </div>
+
+      {/* Ambient High-Tech Chromatic Glows */}
+      <div className="fixed top-12 left-1/4 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[160px] pointer-events-none"></div>
+      <div className="fixed top-1/2 right-10 w-[600px] h-[600px] bg-purple-600/12 rounded-full blur-[160px] pointer-events-none"></div>
+      <div className="fixed bottom-10 left-10 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[160px] pointer-events-none"></div>
       
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-50 p-3.5 rounded-2xl bg-emerald-950/90 border border-emerald-500/60 shadow-2xl text-emerald-200 text-xs font-medium flex items-center gap-2.5 backdrop-blur-md animate-slideUp">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-          <span>{toastMessage}</span>
+        <div className="fixed bottom-8 right-8 z-50 p-5 rounded-3xl bg-slate-900/95 border border-amber-400/40 shadow-2xl shadow-black text-amber-200 text-xs font-semibold flex items-center gap-3 backdrop-blur-2xl">
+          <CheckCircle2 className="w-5 h-5 text-amber-400 flex-shrink-0" />
+          <span className="font-tech">{toastMessage}</span>
         </div>
       )}
 
       {/* Global Header */}
-      <Header
-        selectedBrand={selectedBrand}
-        onSelectBrand={setSelectedBrand}
-        hasApiKey={true}
-        onResetDemo={handleResetDemoData}
-        stats={{
-          pendingReview: pendingReviewCount,
-          approvedQueue: assets.filter((a) => a.status === "approved").length,
-          scheduled: assets.filter((a) => a.status === "scheduled").length,
-          published: assets.filter((a) => a.status === "published").length,
-          lessonsCount: lessons.length,
-        }}
-      />
+      <div className="relative z-30">
+        <Header
+          selectedBrand={selectedBrand}
+          onSelectBrand={setSelectedBrand}
+          hasApiKey={true}
+          onResetDemo={handleResetDemoData}
+          currentTheme={currentTheme}
+          onThemeChange={handleThemeChange}
+          onOpenCover={() => setShowCoverPage(true)}
+          stats={{
+            pendingReview: pendingReviewCount,
+            approvedQueue: assets.filter((a) => a.status === "approved").length,
+            scheduled: assets.filter((a) => a.status === "scheduled").length,
+            published: assets.filter((a) => a.status === "published").length,
+            lessonsCount: lessons.length,
+          }}
+        />
 
-      {/* Navigation Sub-Header Bar */}
-      <div className="border-b border-slate-800/80 bg-slate-900/50 backdrop-blur-md sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between overflow-x-auto no-scrollbar py-2">
-            <div className="flex items-center gap-1 min-w-max">
+        {/* Live Stock & Neural Synapse Market Ticker Stream */}
+        <NeuralMarketTicker />
+      </div>
+
+      {/* Interactive Entrance Cover Portal */}
+      <AnimatePresence>
+        {showCoverPage && (
+          <motion.div
+            key="scaleup-cover-portal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.04 }}
+            transition={{ duration: 0.45, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 overflow-hidden"
+          >
+            <CoverPage onEnter={() => setShowCoverPage(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Navigation Sub-Header Bar (Runner AI Clean Tab Bar) */}
+      <div className="border-b border-white/[0.08] bg-[#090a0f]/85 backdrop-blur-2xl sticky top-0 z-30 shadow-lg relative transition-colors">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+          <div className="flex items-center justify-between overflow-x-auto no-scrollbar py-3">
+            <div className="flex items-center gap-2 min-w-max">
               {navTabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -221,20 +277,20 @@ export default function App() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer ${
+                    className={`px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-all cursor-pointer ${
                       isActive
-                        ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 shadow-sm"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
+                        ? "bg-white text-slate-950 font-bold shadow-md shadow-white/10"
+                        : "text-neutral-400 hover:text-white hover:bg-neutral-800/60 border border-transparent"
                     }`}
                   >
-                    <Icon className={`w-3.5 h-3.5 ${isActive ? "text-emerald-400" : "text-slate-400"}`} />
-                    <span>{tab.label}</span>
+                    <Icon className={`w-4 h-4 ${isActive ? "text-slate-950" : "text-neutral-400"}`} />
+                    <span className="tracking-tight">{tab.label}</span>
                     {tab.badge && (
                       <span
-                        className={`text-[9px] font-mono px-1.5 py-0.5 rounded-md ${
+                        className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
                           isActive
-                            ? "bg-emerald-500/20 text-emerald-300"
-                            : "bg-slate-800 text-slate-400"
+                            ? "bg-slate-950/20 text-slate-950"
+                            : "bg-[#161a23] text-neutral-400 border border-white/10"
                         }`}
                       >
                         {tab.badge}
@@ -248,44 +304,52 @@ export default function App() {
         </div>
       </div>
 
-      {/* Main Workspace Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      {/* Main Workspace Body with Generous Space Between Features */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 py-14 space-y-16 relative z-10">
+        
+        {/* Top Neural Brain HUD & Market Cognitive Matrix */}
+        <NeuralBrainHUD
+          lessonsCount={lessons.length}
+          assetsCount={assets.length}
+          approvedCount={assets.filter((a) => a.status === "approved").length}
+          selectedBrand={selectedBrand}
+        />
         
         {/* Persistent Pipeline Flow Quick Visual on Home Tab */}
         {activeTab === "flow" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-10 animate-fadeIn">
             <AgentFlowDiagram
               lessonsCount={lessons.length}
               onSelectTab={(tab) => setActiveTab(tab)}
             />
 
-            {/* Hackathon Executive Brief Overview Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
-                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-mono font-bold text-xs">
+            {/* Hackathon Executive Brief Overview Cards with Space Theme & Generous Gaps */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/20 space-y-3 shadow-xl shadow-black/40 backdrop-blur-md hover:border-cyan-500/40 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono font-bold text-xs shadow-[0_0_12px_rgba(16,185,129,0.2)]">
                   01
                 </div>
-                <h3 className="text-sm font-bold text-white">Three Niche Insurance Brands</h3>
+                <h3 className="text-sm font-bold text-white tracking-wide">Three Niche Insurance Brands</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   Tailored persona engines for <strong>Jade</strong> (Jewellers Block), <strong>Jaguar Transit</strong> (High-value specie air cargo), and <strong>DoctorShield</strong> (Medical malpractice indemnity).
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
-                <div className="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 font-mono font-bold text-xs">
+              <div className="p-6 rounded-2xl bg-slate-900/80 border border-purple-500/20 space-y-3 shadow-xl shadow-black/40 backdrop-blur-md hover:border-purple-500/40 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 font-mono font-bold text-xs shadow-[0_0_12px_rgba(168,85,247,0.2)]">
                   02
                 </div>
-                <h3 className="text-sm font-bold text-white">Closed-Loop Reinforcement Memory</h3>
+                <h3 className="text-sm font-bold text-white tracking-wide">Closed-Loop Reinforcement Memory</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   Every human edit or rejection captures a tag + note, instantly updating the <strong>{lessons.length} active directives</strong> injected into future prompts so the AI never repeats a mistake.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2.5">
-                <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-mono font-bold text-xs">
+              <div className="p-6 rounded-2xl bg-slate-900/80 border border-amber-500/20 space-y-3 shadow-xl shadow-black/40 backdrop-blur-md hover:border-amber-500/40 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-mono font-bold text-xs shadow-[0_0_12px_rgba(245,158,11,0.2)]">
                   03
                 </div>
-                <h3 className="text-sm font-bold text-white">First-Class Compliance Gate</h3>
+                <h3 className="text-sm font-bold text-white tracking-wide">First-Class Compliance Gate</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   Strict regulatory auditing against <strong>MAS SG Notice 124</strong>, BNM Code of Practice, and HKIA rules. Flags absolute guarantees and auto-remediates copy before human signoff.
                 </p>
@@ -296,7 +360,7 @@ export default function App() {
 
         {/* Tab 1: Content Engine Studio */}
         {activeTab === "generator" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <ContentEngine
               selectedBrand={selectedBrand}
               lessons={lessons}
@@ -308,7 +372,7 @@ export default function App() {
 
         {/* Tab 2: Compliance Gate Hub */}
         {activeTab === "compliance" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <ComplianceGateHub
               assets={assets}
               onAssetUpdated={handleAssetUpdated}
@@ -318,7 +382,7 @@ export default function App() {
 
         {/* Tab 3: Human Review & Closed-Loop Memory Queue */}
         {activeTab === "review" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <HumanReviewQueue
               assets={assets}
               lessons={lessons}
@@ -333,7 +397,7 @@ export default function App() {
 
         {/* Tab 4: Video Studio & Short-form Reels */}
         {activeTab === "video" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <VideoStudio
               assets={assets}
               selectedBrand={selectedBrand}
@@ -344,7 +408,7 @@ export default function App() {
 
         {/* Tab 5: Lead Intelligence & Personalized Outreach */}
         {activeTab === "leads" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <LeadGenHub
               leads={leads}
               selectedBrand={selectedBrand}
@@ -355,7 +419,7 @@ export default function App() {
 
         {/* Tab 6: Market Radar & Newsjack Triggers */}
         {activeTab === "competitors" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <CompetitorRadar
               competitors={competitors}
               newsjacks={newsjacks}
@@ -368,7 +432,7 @@ export default function App() {
 
         {/* Tab 7: Project 2 (The Hands) Auto-Publisher */}
         {activeTab === "hands" && (
-          <div className="space-y-6 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <AutoPublishHands
               assets={assets}
               selectedBrand={selectedBrand}
@@ -380,15 +444,19 @@ export default function App() {
 
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-4 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 font-mono">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>JA ASSURE MULTI-AGENT MARKETING BRAIN & HANDS • HACKATHON EDITION</span>
+      {/* Footer with Space Theme & Mission Control Status */}
+      <footer className="border-t border-cyan-500/15 bg-slate-950/95 py-6 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse"></span>
+            <span className="text-slate-300 font-semibold">JA ASSURE ORBITAL MISSION CONTROL</span>
+            <span>•</span>
+            <span>MULTI-AGENT MARKETING BRAIN & HANDS</span>
           </div>
-          <div>
-            <span>Strict MAS Notice 124 / BNM Compliance • Closed-Loop Reinforcement Active</span>
+          <div className="flex items-center gap-3 text-slate-400">
+            <span>MAS Notice 124 / BNM Strict Gate</span>
+            <span>•</span>
+            <span className="text-cyan-400 font-medium">Closed-Loop Reinforcement Active</span>
           </div>
         </div>
       </footer>
